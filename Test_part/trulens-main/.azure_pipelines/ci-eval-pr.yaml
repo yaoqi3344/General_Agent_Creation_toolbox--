@@ -1,0 +1,91 @@
+pr:
+  branches:
+    include:
+      - main
+      - releases/*
+  paths:
+    include:
+      - trulens_eval
+      - docs/trulens_eval/*.ipynb
+
+jobs:
+  - job: PRBranchProtect
+    pool:
+      vmImage: "ubuntu-latest"
+    timeoutInMinutes: 30
+
+    strategy:
+      matrix:
+        default:
+          condaEnvFileSuffix: "trulens-llm"
+          testSubdirectory: "tests/unit"
+
+    steps:
+      - checkout: self
+        clean: true
+
+      - bash: echo "##vso[task.prependpath]$CONDA/bin"
+        displayName: Add conda to PATH
+
+      - bash: |
+          set -e
+          conda create  -y --quiet -n $(condaEnvFileSuffix) python=3.11
+          conda init bash
+        displayName: Create Anaconda environment
+
+      - bash: |
+          set -e
+          source activate $(condaEnvFileSuffix)
+          which python
+          python --version
+        displayName: Which Python
+
+      - bash: |
+          set -e
+          source activate $(condaEnvFileSuffix)
+          cd ./trulens_eval
+          pip install -e .
+          pip install yapf==0.32.0
+          pip install isort==5.10.1
+          pip install ipykernel
+          python -m ipykernel install --user --name $(condaEnvFileSuffix) --display-name $(condaEnvFileSuffix)
+        displayName: Install pip package
+
+      - bash: |
+          set -e
+          source activate $(condaEnvFileSuffix)
+          echo Using $(yapf --version) isort $(isort --vn)
+          ./format.sh --eval
+        displayName: Format Code
+
+      - bash: |
+          num_changed_files=`git ls-files --others -m --exclude-standard ./trulens_eval | wc -l`
+          if [ $num_changed_files -ne 0 ]; then
+            echo "The following files have changed after running format.sh. Please format your code and update the PR."
+            git ls-files --others -m --exclude-standard ./trulens_eval
+            echo "\n\nOutputting git diff for checked in files.\n"
+            git diff
+          fi
+        displayName: NoDiffCheck
+
+      - bash: |
+          source activate $(condaEnvFileSuffix)
+
+          cd ./trulens_eval
+
+          pip install pytest==7.0.1 pytest-azurepipelines
+          pip install -r trulens_eval/requirements.optional.txt
+          
+          echo '::group::piplist'
+          echo "$(pip list)"
+          echo '::endgroup::'
+          
+          python -m pytest $(testSubdirectory)
+        displayName: Run unit tests
+
+        env:
+          OPENAI_API_KEY: $(OPENAI_API_KEY)
+          HUGGINGFACE_API_KEY: $(HUGGINGFACE_API_KEY)
+          PINECONE_API_KEY: $(PINECONE_API_KEY)
+          PINECONE_ENV: $(PINECONE_ENV)
+          HUGGINGFACEHUB_API_TOKEN: $(HUGGINGFACEHUB_API_TOKEN)

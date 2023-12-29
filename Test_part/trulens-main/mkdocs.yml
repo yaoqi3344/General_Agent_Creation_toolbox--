@@ -1,0 +1,164 @@
+site_name: TruLens
+site_description: Evaluate and track LLM applications. Explain Deep Neural Nets.
+
+repo_name: truera/trulens
+repo_url: https://github.com/truera/trulens
+
+markdown_extensions:
+  # https://squidfunk.github.io/mkdocs-material/reference/mathjax/
+  - pymdownx.arithmatex:
+      generic: true
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.extra
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - mdx_math:
+      enable_dollar_delimiter: True #for use of inline $..$
+  - markdown_include.include:
+      base_path: docs
+  - attr_list
+
+plugins:
+  - mkdocs-jupyter
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_root_heading: false
+            show_source: true
+          selection:
+            filters:
+              - "!^_" # exlude all members starting with _
+              - "^__init__$" # but always include __init__ modules and methods
+              - "^__call__$" # and __call__ methods
+      watch:
+        - trulens_explain/trulens
+  - search
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  custom_dir: docs/overrides/
+  palette:
+    scheme: trulens
+  #font:
+  #  text: Source Sans Pro
+  favicon: img/favicon.ico
+  logo: img/squid.png
+  features:
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - navigation.path
+    - search.share
+    - search.suggest
+    - toc.follow
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Welcome to TruLens!: welcome.md
+  - Eval:
+      - Getting Started:
+          - 🚀 Installation: trulens_eval/install.md
+          - ⚡ Quickstarts:
+              - Quickstart: trulens_eval/quickstart.ipynb
+              - LangChain Quickstart: trulens_eval/langchain_quickstart.ipynb
+              - Llama-Index Quickstart: trulens_eval/llama_index_quickstart.ipynb
+              - Text to Text Quickstart: trulens_eval/text2text_quickstart.ipynb
+              - Ground Truth Evaluation Quickstart: trulens_eval/groundtruth_evals.ipynb
+              - Human Feedback Quickstart: trulens_eval/human_feedback.ipynb
+          - 🧠 Core Concepts:
+              - Feedback Functions: trulens_eval/core_concepts_feedback_functions.md
+              - RAG Triad: trulens_eval/core_concepts_rag_triad.md
+              - Honest, Harmless, Helpful Evals: trulens_eval/core_concepts_honest_harmless_helpful_evals.md
+      - Evaluation:
+          - 🎯 Feedback Functions:
+              - Feedback Function Definitions: trulens_eval/function_definitions.md
+              - Feedback Function Guide: trulens_eval/feedback_function_guide.md
+              - Custom Feedback Functions: trulens_eval/custom_feedback_functions.ipynb
+              - Smoke Tests:
+                  - Answer Relevance: trulens_eval/answer_relevance_smoke_tests.ipynb
+                  - Context Relevance: trulens_eval/context_relevance_smoke_tests.ipynb
+                  - Groundedness: trulens_eval/groundedness_smoke_tests.ipynb
+          - 📚 API Reference:
+              - Feedback Functions: trulens_eval/api/feedback.md
+              - Providers:
+                  - OpenAI: trulens_eval/api/openai_provider.md
+                  - AzureOpenAI: trulens_eval/api/azureopenai_provider.md
+                  - AWS Bedrock: trulens_eval/api/bedrock_provider.md
+                  - HuggingFace: trulens_eval/api/huggingface_provider.md
+                  - LiteLLM: trulens_eval/api/litellm_provider.md
+      - Tracking:
+          - 🎺 Instrumentation:
+              - Overview: trulens_eval/basic_instrumentation.ipynb
+              - LangChain Integration: trulens_eval/langchain_instrumentation.ipynb
+              - Llama-Index Integration: trulens_eval/llama_index_instrumentation.ipynb
+          - 🚚 Logging:
+              - Where to Log: trulens_eval/where_to_log.md
+              - Logging Methods: trulens_eval/logging.ipynb
+          - 📚 API Reference:
+              - Tru: trulens_eval/api/tru.md
+              - TruBasicApp: trulens_eval/api/trubasicapp.md
+              - TruChain: trulens_eval/api/truchain.md
+              - TruLlama: trulens_eval/api/trullama.md
+              - TruCustom: trulens_eval/api/trucustom.md
+      - Guides:
+          - 🔍 Use Cases:
+              - Any LLM App: trulens_eval/use_cases_any.md
+              - RAGs: trulens_eval/use_cases_rag.md
+              - LLM Agents: trulens_eval/use_cases_agent.md
+              - Dev to Prod: trulens_eval/use_cases_production.md
+      - Contributing:
+          - 🤝 Contribution Guidelines: trulens_eval/CONTRIBUTING.md
+
+  - Explain:
+      - Getting Started:
+          - 🚀 Installation: trulens_explain/install.md
+          - ⚡ Quickstart: trulens_explain/quickstart.md
+      - Attributions: trulens_explain/attribution_parameterization.md
+      - API Reference:
+          - Attribution: trulens_explain/api/attribution.md
+          - Models: trulens_explain/api/model_wrappers.md
+          - Slices: trulens_explain/api/slices.md
+          - Quantities: trulens_explain/api/quantities.md
+          - Distributions: trulens_explain/api/distributions.md
+          - Visualizations: trulens_explain/api/visualizations.md
+#  - Resources:
+#    - NeurIPS Demo: https://truera.github.io/neurips-demo-2021/
+
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/cover.css
+
+# https://squidfunk.github.io/mkdocs-material/reference/mathjax/
+# Polyfill provides backcompat for JS. We need to import it before
+# importing MathJax.
+extra_javascript:
+  - javascript/config.js
+  - javascript/app.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - javascript/tex-mml-chtml-3.0.0.js
+  - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML
