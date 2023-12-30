@@ -97,16 +97,29 @@
 - 场景：RAG语言模型回答评分框架、Honest, Harmless and Helpful Evaluations
 - [下载链接](https://www.trulens.org/trulens_eval/quickstart/)
 
+#### JMeter
+- 场景：网页负载测试
+- [下载链接](https://jmeter.apache.org/download_jmeter.cgi)
+- [使用方法](https://jmeter.apache.org/)
+
+#### selenium
+- 场景：基于浏览器的回归自动化套件和测试
+- [下载链接](https://www.selenium.dev/downloads/)
+- [使用方法](https://www.selenium.dev/documentation/)
+
 ---
 
 ### 部署工具
 部署工具介绍
 
 #### nginx
+
 #### certbot
 - 场景：免费网络证书下载管理、HTTPS、Let's Encrypt
 - 使用方法：`sudo apt install certbot python3-certbot-nginx`, `certbot --nginx`
 - [详情链接](https://certbot.eff.org/)
+
+#### docker
 
 ---
 
@@ -115,7 +128,8 @@
 
 #### Loki
 - 场景：日志收集、预警、数据展示
-- [详情链接](https://grafana.com/docs/loki/latest/setup/install/)
+- [下载链接](https://grafana.com/docs/loki/latest/setup/install/)
+- [使用方法](https://grafana.com/docs/loki/latest/get-started/)
 
 ---
 
