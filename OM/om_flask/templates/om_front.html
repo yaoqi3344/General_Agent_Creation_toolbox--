@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>运维管理页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            background: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        input[type="file"],
+        input[type="number"],
+        input[type="email"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #bd2130;
+        }
+    </style>
+</head>
+<body>
+    <h1>运维管理页面</h1>
+    
+    <!-- 上传文件表单 -->
+    <form method="POST" action="/om/upload" enctype="multipart/form-data">
+        <label for="file">上传Python脚本：</label>
+        <input type="file" name="file" id="file" required>
+        
+        <label for="execution_interval">执行间隔（秒）：</label>
+        <input type="number" name="execution_interval" id="execution_interval" required>
+
+        <label for="recipient_email">收件人邮箱：</label>
+        <input type="email" name="recipient_email" id="recipient_email" required>
+
+        <input type="submit" value="添加任务">
+    </form>
+
+    <!-- 展示现有任务的表格 -->
+    <h2>任务列表</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Python脚本</th>
+                <th>执行间隔（秒）</th>
+                <th>收件人邮箱</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.script_path }}</td>
+                    <td>{{ task.execution_interval }}</td>
+                    <td>{{ task.recipient_email }}</td>
+                    <td>
+                        <button onclick="deleteTask({{ task.id }})">删除</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- 删除任务的JavaScript函数 -->
+    <script>
+    function deleteTask(taskId) {
+        if (confirm('确定要删除任务吗？')) {
+            fetch(`/om/delete/${taskId}`, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('删除任务失败');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.message === "Task and file deleted successfully") {
+                    alert('任务删除成功');
+                    window.location.reload(); // 刷新页面以显示最新的任务列表
+                } else {
+                    alert('删除任务失败');
+                }
+            })
+            .catch(error => {
+                console.error('删除任务时出现错误:', error);
+            });
+        }
+    }
+    </script>
+
+</body>
+</html>
