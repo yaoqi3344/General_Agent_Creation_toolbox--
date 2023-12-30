@@ -55,8 +55,8 @@
 
 ## AI landscpae
 <p align="center">
-  <img src="image/landscape-latest.png" alt="Chart of AI Agents Landscape" width="49%" />
-  <img src="image/visual.png" alt="Chart of AI Agents Landscape" width="49%" />
+  <img src="image/landscape-latest.png" alt="Chart of AI Agents Landscape" height="49%" />
+  <img src="image/visual.png" alt="Chart of AI Agents Landscape" height="49%" />
 </p>
 
 
