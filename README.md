@@ -20,9 +20,13 @@
 - **语料库检索平台**: 2018年之前发布的语料库, 国内整理 | [详情](https://languageresources.github.io/)
 - **huggingface datasheet**: 发布/抓取huggingface上的datasheet | [详情](https://github.com/huggingface/datasets)
 
+---
+
 ### 管理组件
 - **微信jssdk**: 登陆验证, 微信支付 | [下载](http://res.wx.qq.com/open/js/jweixin-1.6.0.js) | [使用](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html)
 - **支付宝SDK**: 登陆验证, 支付宝支付 | [详情](https://opendocs.alipay.com/support/01rfry)
+
+---
 
 ### 测试组件
 - **evals**: 语言模型评估框架, 测试模板撰写 | [详情](https://github.com/openai/evals)
@@ -30,13 +34,19 @@
 - **JMeter**: 网页负载测试 | [下载](https://jmeter.apache.org/download_jmeter.cgi) | [使用方法](https://jmeter.apache.org/)
 - **selenium**: 基于浏览器的回归自动化套件和测试 | [下载](https://www.selenium.dev/downloads/) | [使用方法](https://www.selenium.dev/documentation/)
 
+---
+
 ### 部署工具
 - **nginx**
 - **certbot**: 免费网络证书下载管理, HTTPS, Let's Encrypt | [详情](https://certbot.eff.org/)
 - **docker**
 
+---
+
 ### 运维工具
 - **Loki**: 日志收集, 预警, 数据展示 | [下载](https://grafana.com/docs/loki/latest/setup/install/) | [使用](https://grafana.com/docs/loki/latest/get-started/)
+
+---
 
 ### 宣传模板
 - **小红书/抖音/微博/微信公众号运营教程/撰写模板**
