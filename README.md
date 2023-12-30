@@ -54,7 +54,7 @@
 ---
 
 
-<img src="assets/landscape-latest.png" width="100%" alt="Chart of AI Agents Landscape" />
+<img src="image/landscape-latest.png" width="100%" alt="Chart of AI Agents Landscape" />
 
 Welcome to our list of AI agents.
 We structured the list into two parts:
